@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuôi Tôi - Ủng hộ tôi, không hối hận</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #d1fae5;
+            color: #059669;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge::before {
+            content: "●";
+            color: #10b981;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: #2563eb;
+        }
+
+        .description {
+            color: #6b7280;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1f2937;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* Progress Card */
+        .progress-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .progress-label {
+            color: #10b981;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 12;
+        }
+
+        .progress-bar {
+            fill: none;
+            stroke: #2563eb;
+            stroke-width: 12;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .progress-goal {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #2563eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 4rem 2rem;
+            background: #f9fafb;
+        }
+
+        .comparison-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: #f9fafb;
+            padding: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* Expense Section */
+        .expense {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .expense-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .chart-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .legend {
+            text-align: left;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .legend-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .legend-percentage {
+            margin-left: auto;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Support Methods */
+        .support-methods {
+            padding: 4rem 2rem;
+            background: #f9fafb;
+        }
+
+        .support-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .method-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .method-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .method-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .method-badge {
+            margin-left: auto;
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .bank-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .bank-label {
+            color: #6b7280;
+        }
+
+        .bank-value {
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            cursor: pointer;
+            color: #2563eb;
+            margin-left: 0.5rem;
+        }
+
+        .momo-button, .coffee-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .momo-button {
+            background: #a91b60;
+            color: white;
+        }
+
+        .momo-button:hover {
+            background: #8b1550;
+        }
+
+        .coffee-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .coffee-option {
+            padding: 2rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .coffee-option:hover {
+            border-color: #2563eb;
+        }
+
+        .coffee-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .coffee-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .coffee-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .coffee-button {
+            background: #fbbf24;
+            color: #1f2937;
+        }
+
+        .coffee-button:hover {
+            background: #f59e0b;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .chart-container {
+                flex-direction: column;
+            }
+
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#2563eb" stroke-width="2"/>
+                    <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="9" cy="10" r="1" fill="#2563eb"/>
+                    <circle cx="15" cy="10" r="1" fill="#2563eb"/>
+                </svg>
+                Nuôi Trần Tú
+            </a>
+            <div class="nav-links">
+                <a href="#about">Về tôi</a>
+                <a href="#compare">Sao kê</a>
+                <button class="btn-primary">Ủng hộ</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">Minh bạch 100%</div>
+            <h1>Ủng hộ tôi, <span class="highlight">không hối hận</span></h1>
+            <p class="description">Mọi đồng tiền bạn gửi đều được sao kê công khai. Không lấp liếm, không mập mờ, không biến mất bí ẩn.</p>
+
+            <div class="hero-buttons">
+                <button class="btn-primary">🎁 Ủng hộ ngay</button>
+                <button class="btn-secondary">📋 Xem sao kê</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">121</div>
+                    <div class="stat-label">Người ủng hộ</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Minh bạch</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">350 ngày</div>
+                    <div class="stat-label">Hoạt động</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-card">
+            <div class="progress-label">🌱 Đang phát triển</div>
+            <div class="progress-circle">
+                <svg width="200" height="200">
+                    <circle cx="100" cy="100" r="90" class="progress-bg"/>
+                    <circle cx="100" cy="100" r="90" class="progress-bar"
+                            stroke-dasharray="565.48"
+                            stroke-dashoffset="141.37"/>
+                </svg>
+                <div class="progress-text">75%</div>
+            </div>
+            <div class="progress-goal">Mục tiêu tháng này</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="features-container">
+            <div class="section-header">
+                <div class="section-badge">GIỚI THIỆU</div>
+                <h2 class="section-title">Tại sao nên nuôi tôi?</h2>
+                <p class="section-description">Không phải ai cũng xứng đáng được ủng hộ. Nhưng tôi thì có.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Minh bạch tuyệt đối</h3>
+                    <p class="feature-description">Mọi giao dịch đều được ghi nhận và công khai. Bạn có thể kiểm tra bất cứ lúc nào.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">Cập nhật hàng ngày</h3>
+                    <p class="feature-description">Sao kê được cập nhật tự động mỗi ngày lúc 6h sáng. Không delay, không chậm trễ.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✉️</div>
+                    <h3 class="feature-title">Biên lai tự động</h3>
+                    <p class="feature-description">Sau khi donate, bạn sẽ nhận được email xác nhận cùng biên lai chi tiết.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3 class="feature-title">Hỗ trợ 24/7</h3>
+                    <p class="feature-description">Có thắc mắc? Liên hệ bất cứ lúc nào. Kể cả 3 giờ sáng (nhưng sẽ trả lời sau).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison" id="compare">
+        <div class="comparison-container">
+            <div class="section-header">
+                <div class="section-badge">SO SÁNH</div>
+                <h2 class="section-title">Tôi khác gì "người khác"?</h2>
+            </div>
+
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div>TIÊU CHÍ</div>
+                    <div style="color: #2563eb;">NUÔI TÔI</div>
+                    <div>NGƯỜI KHÁC</div>
+                </div>
+
+                <div class="table-row">
+                    <div>Sao kê chi tiêu</div>
+                    <div class="check">✓ Hằng ngày</div>
+                    <div class="cross">✗ "Sẽ có sau"</div>
+                </div>
+
+                <div class="table-row">
+                    <div>Độ minh bạch</div>
+                    <div class="check">✓ 100%</div>
+                    <div class="cross">✗ "Tin tôi đi"</div>
+                </div>
+
+                <div class="table-row">
+                    <div>Mục đích sử dụng</div>
+                    <div class="check">✓ Công khai rõ ràng</div>
+                    <div class="cross">✗ "Tự thiện"</div>
+                </div>
+
+                <div class="table-row">
+                    <div>Phản hồi</div>
+                    <div class="check">✓ Trong ngày</div>
+                    <div class="cross">✗ Không liên lạc được</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expense Section -->
+    <section class="expense">
+        <div class="expense-container">
+            <div class="section-header">
+                <h2 class="section-title">Tiền của bạn đi đâu?</h2>
+                <p class="section-description">Chi tiết phân bổ chi tiêu hàng tháng</p>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart">
+                    <svg width="300" height="300" viewBox="0 0 300 300">
+                        <circle cx="150" cy="150" r="120" fill="none" stroke="#3b82f6" stroke-width="60" stroke-dasharray="285 565" transform="rotate(-90 150 150)"/>
+                        <circle cx="150" cy="150" r="120" fill="none" stroke="#10b981" stroke-width="60" stroke-dasharray="150 565" stroke-dashoffset="-285" transform="rotate(-90 150 150)"/>
+                        <circle cx="150" cy="150" r="120" fill="none" stroke="#f59e0b" stroke-width="60" stroke-dasharray="113 565" stroke-dashoffset="-435" transform="rotate(-90 150 150)"/>
+                        <circle cx="150" cy="150" r="120" fill="none" stroke="#6b7280" stroke-width="60" stroke-dasharray="75 565" stroke-dashoffset="-548" transform="rotate(-90 150 150)"/>
+                        <circle cx="150" cy="150" r="120" fill="none" stroke="#8b5cf6" stroke-width="60" stroke-dasharray="128 565" stroke-dashoffset="-623" transform="rotate(-90 150 150)"/>
+                    </svg>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #3b82f6;"></div>
+                        <div>
+                            <div class="legend-label">Ăn uống</div>
+                            <div class="legend-description">Cơm, phở, bún, mì...</div>
+                        </div>
+                        <div class="legend-percentage">38%</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #10b981;"></div>
+                        <div>
+                            <div class="legend-label">Điện, nước, internet</div>
+                            <div class="legend-description">Bills hàng tháng</div>
+                        </div>
+                        <div class="legend-percentage">20%</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f59e0b;"></div>
+                        <div>
+                            <div class="legend-label">Cà phê</div>
+                            <div class="legend-description">Nhiên liệu làm việc</div>
+                        </div>
+                        <div class="legend-percentage">15%</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #6b7280;"></div>
+                        <div>
+                            <div class="legend-label">Học tập</div>
+                            <div class="legend-description">Khóa học, sách vở</div>
+                        </div>
+                        <div class="legend-percentage">10%</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #8b5cf6;"></div>
+                        <div>
+                            <div class="legend-label">Tiết kiệm & Khác</div>
+                            <div class="legend-description">Dự phòng, giải trí</div>
+                        </div>
+                        <div class="legend-percentage">17%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Methods Section -->
+    <section class="support-methods">
+        <div class="support-container">
+            <div class="section-header">
+                <h2 class="section-title">Chọn cách ủng hộ</h2>
+                <p class="section-description">Mọi đóng góp đều được ghi nhận và trân trọng</p>
+            </div>
+
+            <div class="methods-grid">
+                <!-- Bank Transfer -->
+                <div class="method-card">
+                    <div class="method-header">
+                        <div class="method-icon">🏦</div>
+                        <div class="method-title">Chuyển khoản ngân hàng</div>
+                        <div class="method-badge">VIỆT NAM</div>
+                    </div>
+
+                    <div class="qr-code">
+<!--                        <div class="qr-placeholder"></div>-->
+                        <img src="qr.png" class ="qr-placeholder">
+                        <div style="color: #6b7280; font-size: 0.875rem;">Quét mã VietQR để chuyển khoản</div>
+                    </div>
+
+                    <div class="bank-info">
+                        <span class="bank-label">Ngân hàng</span>
+                        <span class="bank-value">VP Bank</span>
+                    </div>
+
+                    <div class="bank-info">
+                        <span class="bank-label">Số tài khoản</span>
+                        <span class="bank-value">0375802795 <span class="copy-btn" onclick="copyText('0987199439')">📋</span></span>
+                    </div>
+
+                    <div class="bank-info">
+                        <span class="bank-label">Nội dung CK</span>
+                        <span class="bank-value">NUOITOI [Tên của bạn] <span class="copy-btn" onclick="copyText('NUOITOI')">📋</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
